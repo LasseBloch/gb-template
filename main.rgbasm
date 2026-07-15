@@ -1,0 +1,18 @@
+include "hardware.rgbinc"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+section "header", rom0[$0100]
+entry_point:
+	di
+	jp main
+	ds ($0150 - @), 0 ; Fill rest of header with zeros ($0150 - current address)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+section "main", rom0
+main:
+	call InitSample
+	.loop
+		call UpdateSample
+		jr .loop
